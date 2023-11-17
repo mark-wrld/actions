@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Feature;
 
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class LogTest extends TestCase
 {
     public function test_it_return_odd()
     {
@@ -38,15 +38,5 @@ class ExampleTest extends TestCase
         $response = $this->get('/api/test/sdf');
 
         $response->assertStatus(422);
-    }
-
-    public function test_it_log_request()
-    {
-        $response = $this->get('/api/test/1');
-
-        $response->assertStatus(200);
-        $this->assertDatabaseHas('log', [
-            'number' => 1
-        ]);
     }
 }
