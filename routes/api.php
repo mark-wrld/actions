@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-
     return $request->user();
 });
 
+Route::get('/test/{num}', function ($num) {
+    if (!is_numeric($num)) {
+        return response()->json(['message' => 'Number is not numeric'], 422);
+    }
+    $isOdd = $num % 2 != 0;
+    return response()->json(['message' => $isOdd ? 'Number is odd' : 'Number is even'], 200);
+});

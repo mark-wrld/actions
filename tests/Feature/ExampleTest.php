@@ -2,18 +2,41 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_it_return_odd()
     {
-        $response = $this->get('/');
+        $response = $this->get('/api/test/1');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Number is odd'
+            ]);
+    }
+
+    public function test_it_return_even()
+    {
+        $response = $this->get('/api/test/2');
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Number is even'
+            ]);
+    }
+
+    public function test_it_return_error()
+    {
+        $response = $this->get('/api/test/');
+
+        $response->assertStatus(404);
+    }
+
+    public function test_it_return_error_if_string()
+    {
+        $response = $this->get('/api/test/sdf');
+
+        $response->assertStatus(422);
     }
 }
