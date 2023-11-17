@@ -23,5 +23,9 @@ Route::get('/test/{num}', function ($num) {
         return response()->json(['message' => 'Number is not numeric'], 422);
     }
     $isOdd = $num % 2 != 0;
+
+    \App\Models\Log::create([
+        'number' => $num
+    ]);
     return response()->json(['message' => $isOdd ? 'Number is odd' : 'Number is even'], 200);
 });
